@@ -23,12 +23,9 @@ function generateYearlyGraphs(chartsData) {
         datasets: [{
           label: chartData['units'],
           data: chartData['values'],
-          backgroundColor: 'rgb(2, 114, 183)',
-          // borderColor: 'rgb(40, 177, 241)',
-          // borderWidth: 1,
+          backgroundColor: '#1565C0',
           trendlineLinear: {
-            style: 'rgb(189, 66, 95)',
-            lineStyle: 'dotted|solid',
+            style: '#D81B60',
             width: 4,
           }
         }],
@@ -86,33 +83,23 @@ function generateDailyGraphs(chartsData) {
 
 function populateStationsList(chartContainer, stations) {
   let description = chartContainer.querySelector('.description');
-  let stationsList = document.createElement('ul');
+  let html = '';
 
   for(stationId in stations) {
     let station = stations[stationId];
-    let listItem = document.createElement('li');
-    let stationList = document.createElement('ul');
 
-    let location = document.createElement('li');
-    let elevation = document.createElement('li');
-    let periodOfRecord = document.createElement('li');
-    let source = document.createElement('li');
+    html += `<li>${station['name']}<ul>`;
 
-    listItem.innerText = station['name'];
-    elevation.innerText = `Elevation: ${station['elevation']}`;
-    periodOfRecord.innerText = `Period of Record: ${station['period_start']} - ${station['period_end']}`;
-    location.innerText = `Location (approx.): ${station['latitude']}, ${station['longitude']}`;
-    source.innerText = `Data Source: ${station['type']}`;
+    html += `<li>Elevation: ${station['elevation']}</li>`;
+    html += `<li>Period of Record: ${station['period_start']} - ${station['period_end']}</li>`;
+    html += `<li>Location (approx.): ${station['latitude']}, ${station['longitude']}</li>`;
+    html += `<li>Data Source: ${station['type']}</li>`;
 
-    stationList.appendChild(elevation);
-    stationList.appendChild(periodOfRecord);
-    stationList.appendChild(location);
-    stationList.appendChild(source);
-
-    listItem.appendChild(stationList);
-    stationsList.appendChild(listItem);
+    html += '</ul></li>';
   }
 
+  let stationsList = document.createElement('ul');
+  stationsList.innerHTML = html;
   description.appendChild(stationsList);
 }
 
@@ -149,7 +136,7 @@ function chartOptions(title, units) {
           type: 'line',
           yMin: 32, // Degrees F
           yMax: 32, // Degrees F
-          borderColor: '#1d4cb3',
+          borderColor: '#5D4037',
           borderWidth: 2,
           borderDash: [10, 10],
         },
